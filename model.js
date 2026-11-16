@@ -1,21 +1,23 @@
 export const TOTAL = 604;
 export function streak(person, now = new Date()) {
   const days=new Set(person.entries.filter(e=>e.count>0).map(e=>e.day));
-  const cursor=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);
-  if(!days.has(localDay(cursor))) cursor.setDate(cursor.getDate()-1);
+  const cursor=new Date(localDay(now)+'T12:00:00Z');
+  if(!days.has(localDay(cursor))) cursor.setUTCDate(cursor.getUTCDate()-1);
   let count=0;
-  while(days.has(localDay(cursor))){count++;cursor.setDate(cursor.getDate()-1);}
+  while(days.has(localDay(cursor))){count++;cursor.setUTCDate(cursor.getUTCDate()-1);}
   return count;
 }
 export function weekStats(person, now = new Date()) {
-  const start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12);
-  start.setDate(start.getDate()-((start.getDay()+1)%7));
+  const start=new Date(localDay(now)+'T12:00:00Z');
+  start.setUTCDate(start.getUTCDate()-((start.getUTCDay()+1)%7));
   const from=localDay(start),to=localDay(now);
   const entries=person.entries.filter(e=>e.day>=from&&e.day<=to&&e.count>0);
   return {count:entries.reduce((sum,e)=>sum+e.count,0),days:new Set(entries.map(e=>e.day)).size};
 }
 export function localDay(date = new Date()) {
-  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Istanbul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
+  const value=type=>parts.find(p=>p.type===type).value;
+  return `${value('year')}-${value('month')}-${value('day')}`;
 }
 export function totalRead(person) { return person.entries.reduce((n,e) => n+e.count,0); }
 export function progress(person) {
