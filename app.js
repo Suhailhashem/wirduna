@@ -1,5 +1,5 @@
-import {TOTAL,localDay,progress,todayRead,validateCount,finishedDates,streak,weekStats} from './model.js?v=4';
-import {api,allRows,snapshot,record,hasAccess,hasAdmin,readLocal,writeLocal,friendlyError} from './backend.js?v=4';
+import {TOTAL,localDay,progress,todayRead,validateCount,finishedDates,streak,weekStats} from './model.js?v=5';
+import {api,allRows,snapshot,record,hasAccess,hasAdmin,readLocal,writeLocal,friendlyError} from './backend.js?v=5';
 const $=s=>document.querySelector(s),fmt=n=>new Intl.NumberFormat('ar').format(n);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const icon=name=>`<svg aria-hidden="true"><use href="#${name}-icon"/></svg>`;

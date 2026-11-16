@@ -7,6 +7,7 @@ const invite=new URLSearchParams(location.hash.slice(1));
 let family=invite.get('invite')||readLocal(FAMILY_KEY)||'';
 let admin=invite.get('admin')||readLocal(ADMIN_KEY)||'';
 if(invite.has('invite')){writeLocal(FAMILY_KEY,family);if(invite.has('admin'))writeLocal(ADMIN_KEY,admin);history.replaceState(null,'',location.pathname+location.search+'#today');}
+window.addEventListener('hashchange',()=>{if(new URLSearchParams(location.hash.slice(1)).has('invite'))location.reload();});
 export const hasAccess=()=>/^[a-f0-9]{64}$/.test(family);
 export const hasAdmin=()=>/^[a-f0-9]{64}$/.test(admin);
 export async function api(path,options={}){
