@@ -1,4 +1,4 @@
-import {TOTAL,localDay,progress,todayRead,validateCount,finishedDates,streak,weekStats} from './model.js';
+import {TOTAL,localDay,progress,todayRead,validateCount,finishedDates,streak,weekStats} from './model.js?v=2';
 const $=s=>document.querySelector(s), fmt=n=>new Intl.NumberFormat('ar').format(n);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='wirduna-demo-v1';
